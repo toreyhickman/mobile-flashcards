@@ -17,8 +17,6 @@ class DeckList extends Component {
   render() {
     const decks = this.props.decks
 
-    console.log("Decks:", decks)
-
     if (decks.length === 0) {
       return (
         <View style={[styles.container, styles.centered]}>
@@ -27,8 +25,6 @@ class DeckList extends Component {
         </View>
       )
     }
-
-    console.log("Did not return, decks length: ", decks.length)
 
     return (
       <View style={styles.container}>
