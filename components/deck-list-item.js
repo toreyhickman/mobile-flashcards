@@ -9,7 +9,7 @@ export default class DeckListItem extends Component {
     return (
       <View style={styles.deckListItem}>
         <Text style={styles.deckListHeading}>{this.props.title}</Text>
-        <Text style={styles.deckListCardCount}>{this.props.questions.length} cards</Text>
+        <Text style={styles.deckListCardCount}>{this.props.cards.length} cards</Text>
       </View>
     )
   }

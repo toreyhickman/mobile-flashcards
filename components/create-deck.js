@@ -50,7 +50,7 @@ class CreateDeck extends Component {
 
   newDeckData = () => ({
     title: this.state.title,
-    questions: []
+    cards: []
   })
 
   resetTitle = () => this.setState(initialState)
