@@ -3,11 +3,10 @@ import { View, Text, StyleSheet, FlatList } from "react-native"
 import * as Storage from "../utils/storage"
 import { connect } from "react-redux"
 import { getDecks } from "../actions/decks"
+import DeckListItem from "./deck-list-item"
 
-const renderItem = (item) => (
-  <View>
-    <Text>{JSON.stringify(item)}</Text>
-  </View>
+const renderItem = ({item}) => (
+  <DeckListItem {...item} />
 )
 
 class DeckList extends Component {
