@@ -5,12 +5,14 @@ import Button from "./button"
 import * as Storage from "../utils/storage"
 import { connect } from "react-redux"
 import { saveDeck } from "../actions/decks"
+import { white } from "../utils/colors"
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
+    backgroundColor: white
   },
 
   inputWrapper: {
