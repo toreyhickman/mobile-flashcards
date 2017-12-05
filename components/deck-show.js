@@ -1,7 +1,7 @@
 import React, { Component } from "react"
-import { View, Text, StyleSheet } from "react-native"
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native"
 import { connect } from "react-redux"
-import { mediumgray } from "../utils/colors"
+import { mediumgray, teal, white } from "../utils/colors"
 
 const styles = StyleSheet.create({
   container: {
@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     paddingTop: 40,
-    paddingBottom: 80
+    paddingBottom: 120
   },
 
   deckDetails: {
@@ -24,10 +24,27 @@ const styles = StyleSheet.create({
 
   deckCardCount: {
     color: mediumgray
+  },
+
+  button: {
+    width: 300,
+    backgroundColor: teal,
+    padding: 20,
+    alignItems: "center",
+    borderRadius: 4
+  },
+
+  buttonText: {
+    color: white
   }
 })
 
 class DeckShow extends Component {
+  goToDeckAddCard = () => {
+    const { title } = this.props.deck
+    this.props.navigation.navigate("DeckAddCard", { title: title })
+  }
+
   render() {
     const { title, cards } = this.props.deck
 
@@ -36,6 +53,12 @@ class DeckShow extends Component {
         <View style={styles.deckDetails}>
           <Text style={styles.deckHeading}>{title}</Text>
           <Text style={styles.deckCardCount}>{cards.length} cards</Text>
+        </View>
+
+        <View>
+          <TouchableOpacity style={styles.button} onPress={this.goToDeckAddCard}>
+            <Text style={styles.buttonText}>Add a Card</Text>
+          </TouchableOpacity>
         </View>
       </View>
     )
