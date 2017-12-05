@@ -4,15 +4,22 @@ import * as Storage from "../utils/storage"
 import { connect } from "react-redux"
 import { getDecks } from "../actions/decks"
 import DeckListItem from "./deck-list-item"
+import { white } from "../utils/colors"
+import { NavigationActions } from "react-navigation"
 
-const renderItem = ({item}) => (
-  <DeckListItem {...item} />
-)
 
 class DeckList extends Component {
   componentDidMount() {
     this.props.getDecks()
   }
+
+  goToDeck = (deckTitle) => {
+    this.props.navigation.navigate("CardShow", { title: deckTitle })
+  }
+
+  renderItem = ({item}) => (
+    <DeckListItem {...item} goToDeck={this.goToDeck} />
+  )
 
   render() {
     const decks = this.props.decks
@@ -28,7 +35,7 @@ class DeckList extends Component {
 
     return (
       <View style={styles.container}>
-        <FlatList data={decks} renderItem={renderItem} keyExtractor={(deck) => deck.title} />
+        <FlatList data={decks} renderItem={this.renderItem} keyExtractor={(deck) => deck.title} />
       </View>
     )
   }
@@ -36,7 +43,8 @@ class DeckList extends Component {
 
 styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
+    backgroundColor: white
   },
 
   centered: {

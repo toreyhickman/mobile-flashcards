@@ -1,19 +1,14 @@
 import React, { Component } from "react"
-import { View, Text, StyleSheet } from "react-native"
+import { TouchableOpacity, Text, StyleSheet } from "react-native"
 import { gray, mediumgray } from "../utils/colors"
 
-export default class DeckListItem extends Component {
-  render() {
 
-
-    return (
-      <View style={styles.deckListItem}>
-        <Text style={styles.deckListHeading}>{this.props.title}</Text>
-        <Text style={styles.deckListCardCount}>{this.props.cards.length} cards</Text>
-      </View>
-    )
-  }
-}
+export default ({title, cards, goToDeck}) => (
+  <TouchableOpacity style={styles.deckListItem} onPress={() => goToDeck (title)}>
+    <Text style={styles.deckListHeading}>{title}</Text>
+    <Text style={styles.deckListCardCount}>{cards.length} cards</Text>
+  </TouchableOpacity>
+)
 
 const styles = StyleSheet.create({
   deckListItem: {

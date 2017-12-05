@@ -2,7 +2,7 @@ import React from "react"
 import { StyleSheet, Text, View } from "react-native"
 import { white } from "./utils/colors"
 import FlashcardsStatusBar from "./components/flashcards-status-bar"
-import Tabs from "./components/tabs"
+import Stacks from "./components/stacks"
 import reducer from "./reducers"
 import { createStore, applyMiddleware, compose } from "redux"
 import { Provider } from "react-redux"
@@ -28,7 +28,7 @@ export default class App extends React.Component {
       <Provider store={store}>
         <View style={styles.container}>
           <FlashcardsStatusBar />
-          <Tabs />
+          <Stacks />
         </View>
       </Provider>
     )
