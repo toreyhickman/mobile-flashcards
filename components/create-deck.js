@@ -37,15 +37,18 @@ const initialState = {title: ""}
 class CreateDeck extends Component {
   state = initialState
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.decks.map(deck => deck.title).includes(this.state.title)) {
+      this.postDeckCreationActions()
+    }
+  }
+
   updateTitle = (value) => {
     this.setState({title: value})
   }
 
   submitDeck = () => {
     this.props.saveDeck(this.newDeckData())
-    this.resetTitle()
-    Keyboard.dismiss()
-    this.props.navigation.navigate("DeckList", {params: ""})
   }
 
   newDeckData = () => ({
@@ -53,7 +56,11 @@ class CreateDeck extends Component {
     cards: []
   })
 
-  resetTitle = () => this.setState(initialState)
+  postDeckCreationActions = () => {
+    Keyboard.dismiss()
+    this.props.navigation.navigate("DeckShow", {title: this.state.title})
+    this.setState(initialState)
+  }
 
   render() {
     return (
@@ -74,8 +81,13 @@ class CreateDeck extends Component {
   }
 }
 
+const mapStateToProps = ({decks}, ownProps) => ({
+  ...ownProps,
+  decks
+})
+
 const mapDispatchToProps = (dispatch) => ({
   saveDeck: (deck) => dispatch(saveDeck(deck))
 })
 
-export default connect(null, mapDispatchToProps)(CreateDeck)
+export default connect(mapStateToProps, mapDispatchToProps)(CreateDeck)
