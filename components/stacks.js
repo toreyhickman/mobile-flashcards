@@ -2,15 +2,15 @@ import React from "react"
 import { StackNavigator } from "react-navigation"
 import { teal, white } from "../utils/colors"
 import Tabs from "./tabs"
-import CardShow from "./card-show"
+import DeckShow from "./deck-show"
 
 const Stacks = StackNavigator({
   Home: {
     screen: Tabs
   },
-  CardShow: {
-    screen: CardShow,
-    path: "card/:title",
+  DeckShow: {
+    screen: DeckShow,
+    path: "deck/:title",
     navigationOptions: {
       headerTitle: "Deck",
       headerTintColor: white,

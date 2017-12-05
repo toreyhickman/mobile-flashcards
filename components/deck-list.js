@@ -14,7 +14,7 @@ class DeckList extends Component {
   }
 
   goToDeck = (deckTitle) => {
-    this.props.navigation.navigate("CardShow", { title: deckTitle })
+    this.props.navigation.navigate("DeckShow", { title: deckTitle })
   }
 
   renderItem = ({item}) => (

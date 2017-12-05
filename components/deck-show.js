@@ -3,6 +3,6 @@ import { View, Text } from "react-native"
 
 export default () => (
   <View>
-    <Text>Card!</Text>
+    <Text>Deck!</Text>
   </View>
 )
