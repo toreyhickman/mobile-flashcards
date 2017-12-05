@@ -3,6 +3,7 @@ import * as Storage from "../utils/storage"
 
 export const ASSIGN_DECKS = "ASSIGN_DECKS"
 export const ADD_DECK = "ADD_DECK"
+export const ADD_CARD = "ADD_CARD"
 
 const assignDecks = (decks) => {
   return {
@@ -14,6 +15,12 @@ const assignDecks = (decks) => {
 const addDeck = (deck) => ({
   type: ADD_DECK,
   deck
+})
+
+const addCardToDeck = (deckTitle, cardData) => ({
+  type: ADD_CARD,
+  deckTitle,
+  cardData
 })
 
 export const getDecks = () => (
@@ -35,5 +42,12 @@ export const saveDeck = (deck) => (
   (dispatch) => {
     Storage.addDeck(deck.title, deck)
     .then(() => dispatch(addDeck(deck)))
+  }
+)
+
+export const saveCard = (deckTitle, cardData) => (
+  (dispatch) => {
+    Storage.addCardToDeck(deckTitle, cardData)
+    .then(() => dispatch(addCardToDeck(deckTitle, cardData)))
   }
 )

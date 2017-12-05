@@ -1,11 +1,9 @@
 import React, { Component } from "react"
 import { View, Text, StyleSheet, KeyboardAvoidingView, TextInput, Keyboard } from "react-native"
-import { lightgray, teal } from "../utils/colors"
+import { lightgray, teal, white } from "../utils/colors"
 import Button from "./button"
-import * as Storage from "../utils/storage"
 import { connect } from "react-redux"
 import { saveDeck } from "../actions/decks"
-import { white } from "../utils/colors"
 
 const styles = StyleSheet.create({
   container: {
