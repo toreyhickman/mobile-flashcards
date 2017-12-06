@@ -41,29 +41,26 @@ const styles = StyleSheet.create({
 
   buttonText: {
     color: white
-  },
-
-  disabled: {
-    opacity: .2,
-    backgroundColor: mediumgray
   }
 })
 
 class DeckShow extends Component {
-  hasCards = () => this.props.deck.cards.length > 0
+  hasCards = () => this.props.cards.length > 0
 
   goToDeckAddCard = () => {
-    const { title } = this.props.deck
+    const { title } = this.props
     this.props.navigation.navigate("DeckAddCard", { title: title })
   }
 
   goToPlayDeck = () => {
-    const { title } = this.props.deck
+    const { title } = this.props
     this.props.navigation.navigate("PlayDeck", { title: title })
   }
 
   render() {
-    const { title, cards } = this.props.deck
+    const { title, cards } = this.props
+
+    console.log("Rendering ...")
 
     return (
       <View style={styles.container}>
@@ -73,12 +70,11 @@ class DeckShow extends Component {
         </View>
 
         <View style={styles.buttonWrapper}>
-          <TouchableOpacity
-            style={[styles.button, this.hasCards() ? null : styles.disabled]}
-            onPress={this.hasCards() ? this.goToPlayDeck : null}
-          >
-            <Text style={styles.buttonText}>Play Deck</Text>
-          </TouchableOpacity>
+          { this.hasCards() &&
+            <TouchableOpacity style={styles.button} onPress={this.goToPlayDeck}>
+              <Text style={styles.buttonText}>Play Deck</Text>
+            </TouchableOpacity>
+          }
 
           <TouchableOpacity style={styles.button} onPress={this.goToDeckAddCard}>
             <Text style={styles.buttonText}>Add a Card</Text>
@@ -89,8 +85,10 @@ class DeckShow extends Component {
   }
 }
 
-const mapStateToProps = ({decks}, ownProps) => ({
-  deck: decks.find(deck => deck.title === ownProps.navigation.state.params.title)
-})
+const mapStateToProps = ({decks}, ownProps) => {
+  const deck = decks.find(deck => deck.title === ownProps.navigation.state.params.title)
+
+  return {...deck}
+}
 
 export default connect(mapStateToProps)(DeckShow)
