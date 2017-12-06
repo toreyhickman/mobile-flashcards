@@ -4,13 +4,15 @@ import { connect } from "react-redux"
 import { mediumgray, teal, white } from "../utils/colors"
 import { clearLocalNotifications, setLocalNotification } from "../utils/notifications-helpers"
 
+const initialState = {
+  correctlyAnsweredCards: [],
+  incorrectlyAnsweredCards: [],
+  show: "question",
+  complete: false
+}
+
 class PlayDeck extends Component {
-  state = {
-    correctlyAnsweredCards: [],
-    incorrectlyAnsweredCards: [],
-    show: "question",
-    complete: false
-  }
+  state = initialState
 
   componentDidMount = () => {
     this.getActiveCard()
@@ -61,12 +63,17 @@ class PlayDeck extends Component {
       show: "question"
     }), this.getNextActiveCard)
   }
+
   getNextActiveCard = () => {
     if (this.allCardsAnswered()) {
       this.markComplete()
     } else {
       this.getActiveCard()
     }
+  }
+
+  reset = () => {
+    this.setState(initialState, this.getActiveCard)
   }
 
   render() {
@@ -79,6 +86,16 @@ class PlayDeck extends Component {
           <View style={styles.deckDetails}>
             <Text style={styles.deckHeading}>{title}</Text>
             <Text style={styles.deckCardCount}>{correctlyAnsweredCards.length} of {cards.length} cards answered correctly</Text>
+          </View>
+
+          <View style={styles.buttonWrapper}>
+            <TouchableOpacity style={styles.button} onPress={this.reset}>
+              <Text style={styles.buttonText}>Play Again</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.goBack()}>
+              <Text style={styles.buttonText}>Back to Deck</Text>
+            </TouchableOpacity>
           </View>
         </View>
       )
