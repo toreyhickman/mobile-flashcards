@@ -26,6 +26,11 @@ const styles = StyleSheet.create({
     color: mediumgray
   },
 
+  buttonWrapper: {
+    height: 140,
+    justifyContent: "space-between"
+  },
+
   button: {
     width: 300,
     backgroundColor: teal,
@@ -36,13 +41,25 @@ const styles = StyleSheet.create({
 
   buttonText: {
     color: white
+  },
+
+  disabled: {
+    opacity: .2,
+    backgroundColor: mediumgray
   }
 })
 
 class DeckShow extends Component {
+  hasCards = () => this.props.deck.cards.length > 0
+
   goToDeckAddCard = () => {
     const { title } = this.props.deck
     this.props.navigation.navigate("DeckAddCard", { title: title })
+  }
+
+  goToPlayDeck = () => {
+    const { title } = this.props.deck
+    this.props.navigation.navigate("PlayDeck", { title: title })
   }
 
   render() {
@@ -55,7 +72,14 @@ class DeckShow extends Component {
           <Text style={styles.deckCardCount}>{cards.length} cards</Text>
         </View>
 
-        <View>
+        <View style={styles.buttonWrapper}>
+          <TouchableOpacity
+            style={[styles.button, this.hasCards() ? null : styles.disabled]}
+            onPress={this.hasCards() ? this.goToPlayDeck : null}
+          >
+            <Text style={styles.buttonText}>Play Deck</Text>
+          </TouchableOpacity>
+
           <TouchableOpacity style={styles.button} onPress={this.goToDeckAddCard}>
             <Text style={styles.buttonText}>Add a Card</Text>
           </TouchableOpacity>
