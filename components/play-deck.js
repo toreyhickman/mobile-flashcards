@@ -2,6 +2,7 @@ import React, { Component } from "react"
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native"
 import { connect } from "react-redux"
 import { mediumgray, teal, white } from "../utils/colors"
+import { clearLocalNotifications, setLocalNotification } from "../utils/notifications-helpers"
 
 class PlayDeck extends Component {
   state = {
@@ -11,7 +12,9 @@ class PlayDeck extends Component {
     complete: false
   }
 
-  componentDidMount = () => this.getActiveCard()
+  componentDidMount = () => {
+    this.getActiveCard()
+  }
 
   getActiveCard = () => this.setState({activeCard: this.unansweredCard()})
 
@@ -38,7 +41,12 @@ class PlayDeck extends Component {
     show: previousState.show === "question" ? "answer" : "question"
   }))
 
-  markComplete = () => this.setState({complete: true})
+  markComplete = () => {
+    this.setState({complete: true})
+
+    clearLocalNotifications()
+    .then(setLocalNotification)
+  }
 
   markCorrect = () => {
     this.setState((previousState) => ({
